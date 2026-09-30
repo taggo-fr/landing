@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO -->
+  <title>TAGGO — Le T-shirt qui connecte le physique au numérique</title>
+  <meta name="description" content="TAGGO transforme ton T-shirt en identité numérique grâce à un QR code personnalisé." />
+  <link rel="canonical" href="https://taggo.fr/" />
+  <meta name="theme-color" content="#0B1320" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="TAGGO" />
+  <meta property="og:title" content="TAGGO — Le T-shirt qui connecte le physique au numérique" />
+  <meta property="og:description" content="TAGGO transforme ton T-shirt en identité numérique grâce à un QR code personnalisé." />
+  <meta property="og:image" content="assets/taggo-logo-full-colored.png" />
+  <meta property="og:locale" content="fr_FR" />
+
+  <!-- Twitter/X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TAGGO — Le T-shirt qui connecte le physique au numérique" />
+  <meta name="twitter:description" content="TAGGO transforme ton T-shirt en identité numérique grâce à un QR code personnalisé." />
+  <meta name="twitter:image" content="assets/taggo-logo-full-colored.png" />
+
+  <!-- Données structurées -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "TAGGO — T-shirt connecté",
+    "description": "T-shirt avec QR code intégré donnant accès à une identité numérique personnalisable.",
+    "brand": { "@type": "Brand", "name": "TAGGO" },
+    "image": "assets/taggo-logo-full-colored.png"
+  }
+  </script>
+
+  <link rel="icon" type="image/png" href="assets/taggo-icon-colored.png" />
+  <link rel="preload" href="assets/TAGGO-Tshirt.glb" as="fetch" type="model/gltf-binary" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Three.js (module) -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Aller au contenu</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <a class="brand" href="#hero" aria-label="TAGGO — retour en haut">
+      <img src="assets/taggo-logo-full-colored.png" alt="TAGGO" width="150" height="52" />
+    </a>
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="#fonctionnement">Fonctionnement</a>
+      <a href="#personnalisation">Personnalisation</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#usages">Usages</a>
+      <a href="#produit">Produit</a>
+    </nav>
+    <!-- TODO(backend) : remplacer par l'URL réelle de création -->
+    <a class="btn btn-small" href="#creer">Créer mon TAGGO</a>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HERO — EXPÉRIENCE 3D ============ -->
+    <section id="hero" class="hero" aria-label="Présentation immersive TAGGO">
+      <div class="hero-sticky">
+        <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+        <!-- Scène 01 — Face avant -->
+        <div class="scene-overlay" data-window="0.02,0.09">
+          <p class="scene-title">Ton T-shirt peut faire plus.</p>
+          <p class="scene-sub">Découvre TAGGO.</p>
+        </div>
+
+        <!-- Scène 03 — QR -->
+        <div class="scene-overlay scene-center" data-window="0.22,0.29">
+          <p class="scene-title">Un scan suffit.</p>
+        </div>
+
+        <!-- Scène 05 — Traversée du QR (le QR grandit puis révèle l'interface) -->
+        <div class="qr-dive" id="qr-dive" aria-hidden="true">
+          <img src="assets/TAGGO-QR.png" alt="" />
+        </div>
+
+        <!-- Scène 06 — Page TAGGO -->
+        <div class="scene-overlay scene-ui" data-window="0.57,0.64">
+          <div class="taggo-card" role="img" aria-label="Exemple de page TAGGO personnalisée">
+            <img class="taggo-card-logo" src="assets/taggo-icon-colored.png" alt="" width="44" height="44" />
+            <p class="taggo-card-name">Prénom</p>
+            <p class="taggo-card-sub">Découvre mes liens</p>
+            <ul class="taggo-links">
+              <li>Instagram</li>
+              <li>Snapchat</li>
+              <li>WhatsApp</li>
+              <li>Contact</li>
+            </ul>
+          </div>
+          <p class="scene-caption">Ton identité. Toujours avec toi.</p>
+        </div>
+
+        <!-- Scène 07 — Personnalisation -->
+        <div class="scene-overlay scene-ui" data-window="0.66,0.71">
+          <div class="taggo-card">
+            <p class="taggo-card-sub">Destination</p>
+            <p class="swap swap-a">Instagram</p>
+            <p class="swap swap-b">WhatsApp</p>
+          </div>
+          <p class="scene-caption">Change ta destination quand tu veux.</p>
+        </div>
+
+        <!-- Scène 08 — Dashboard -->
+        <div class="scene-overlay scene-ui" data-window="0.73,0.79">
+          <div class="taggo-card taggo-card-wide">
+            <p class="taggo-card-name">TAGGO ID</p>
+            <dl class="dash-list">
+              <div><dt>Destination</dt><dd>Instagram</dd></div>
+              <div><dt>Scans</dt><dd>1 284</dd></div>
+              <div><dt>Statut</dt><dd class="status">Actif</dd></div>
+            </dl>
+          </div>
+          <p class="scene-caption">Tu contrôles ton TAGGO.</p>
+        </div>
+
+        <!-- Scène 09 — Utilisations -->
+        <div class="scene-overlay scene-usages" data-window="0.81,0.87">
+          <div class="usages-grid">
+            <div class="usage"><h3>Particulier</h3><p>Partage ton univers.</p></div>
+            <div class="usage"><h3>Créateur</h3><p>Fais découvrir ton contenu.</p></div>
+            <div class="usage"><h3>Association</h3><p>Présente ton projet.</p></div>
+            <div class="usage"><h3>Pro</h3><p>Transforme ton vêtement en point de contact.</p></div>
+          </div>
+        </div>
+
+        <!-- Scène 11 — CTA final -->
+        <div class="scene-overlay scene-cta" data-window="0.94,1.01">
+          <p class="scene-title">Prêt à créer ton TAGGO ?</p>
+          <!-- TODO(backend) : remplacer par l'URL réelle de création -->
+          <a class="btn" href="#creer">Créer mon TAGGO</a>
+          <p class="scene-sub">T-shirt + identité numérique.</p>
+        </div>
+
+        <!-- Indicateur de scroll -->
+        <div class="scroll-hint" aria-hidden="true"><span></span></div>
+
+        <!-- Chargement -->
+        <div class="hero-loader" id="hero-loader" role="status">Chargement de l'expérience TAGGO…</div>
+
+        <!-- Fallback statique (WebGL indisponible ou reduced-motion) -->
+        <div class="hero-fallback" id="hero-fallback" hidden>
+          <img class="fallback-logo" src="assets/taggo-logo-full-colored.png" alt="TAGGO" />
+          <div class="fallback-body">
+            <div class="fallback-item">
+              <img src="assets/taggo-icon-colored.png" alt="" width="40" height="40" />
+              <p>Ton T-shirt peut faire plus. Découvre TAGGO.</p>
+            </div>
+            <div class="fallback-item">
+              <img src="assets/TAGGO-QR.png" alt="QR code TAGGO au dos du T-shirt" width="120" height="120" />
+              <p>Un scan suffit. Ton identité, toujours avec toi.</p>
+            </div>
+            <a class="btn" href="#creer">Créer mon TAGGO</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FONCTIONNEMENT ============ -->
+    <section id="fonctionnement" class="section">
+      <h2>Comment fonctionne TAGGO ?</h2>
+      <div class="steps">
+        <article class="step">
+          <span class="step-num" aria-hidden="true">01</span>
+          <h3>Porte</h3>
+          <p>Porte ton TAGGO.</p>
+        </article>
+        <article class="step">
+          <span class="step-num" aria-hidden="true">02</span>
+          <h3>Scan</h3>
+          <p>Quelqu'un scanne le QR.</p>
+        </article>
+        <article class="step">
+          <span class="step-num" aria-hidden="true">03</span>
+          <h3>Connecte</h3>
+          <p>Il accède à ta page TAGGO.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ PERSONNALISATION ============ -->
+    <section id="personnalisation" class="section section-alt">
+      <h2>Ton QR. Tes règles.</h2>
+      <div class="split">
+        <div>
+          <ul class="check-list">
+            <li>Choisis ta destination.</li>
+            <li>Modifie-la à tout moment.</li>
+            <li>Personnalise ton expérience.</li>
+            <li>Garde le même T-shirt.</li>
+          </ul>
+          <a class="btn btn-ghost" href="#fonctionnement">Découvrir le fonctionnement</a>
+        </div>
+        <div class="panel">
+          <p class="panel-label">Destination actuelle</p>
+          <p class="panel-value">Instagram</p>
+          <p class="panel-hint">Modifiable à tout moment depuis ton dashboard.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DASHBOARD ============ -->
+    <section id="dashboard" class="section">
+      <h2>Tout contrôler depuis un seul endroit.</h2>
+      <div class="panel panel-wide">
+        <dl class="dash-list dash-list-large">
+          <div><dt>TAGGO ID</dt><dd>#TG-0000</dd></div>
+          <div><dt>Destination</dt><dd>Instagram</dd></div>
+          <div><dt>Statut</dt><dd class="status">Actif</dd></div>
+          <div><dt>Scans</dt><dd>1 284</dd></div>
+        </dl>
+        <p class="panel-hint">Gère ton QR, ta destination et tes paramètres.</p>
+      </div>
+    </section>
+
+    <!-- ============ USAGES ============ -->
+    <section id="usages" class="section section-alt">
+      <h2>Pour qui ?</h2>
+      <div class="usages-grid usages-grid-static">
+        <article class="usage"><h3>Particulier</h3><p>Rencontrer et partager facilement ses liens.</p></article>
+        <article class="usage"><h3>Créateur</h3><p>Partager son univers et ses contenus.</p></article>
+        <article class="usage"><h3>Association</h3><p>Présenter un projet, recruter ou promouvoir une campagne.</p></article>
+        <article class="usage"><h3>Professionnel</h3><p>Créer un point de contact physique et numérique.</p></article>
+      </div>
+    </section>
+
+    <!-- ============ PRODUIT ============ -->
+    <section id="produit" class="section">
+      <h2>Un vêtement. Une identité numérique.</h2>
+      <div class="split">
+        <figure class="product-side">
+          <img src="assets/taggo-logo-full-dark.png" alt="Logo TAGGO sur le devant du T-shirt" width="260" />
+          <figcaption>Devant — logo TAGGO</figcaption>
+        </figure>
+        <figure class="product-side">
+          <img src="assets/TAGGO-QR.png" alt="QR code TAGGO intégré au dos du T-shirt" width="160" height="160" />
+          <figcaption>Dos — QR code</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ CTA FINAL ============ -->
+    <section id="creer" class="section section-cta">
+      <h2>Prêt à créer ton TAGGO ?</h2>
+      <div class="cta-actions">
+        <!-- TODO(backend) : remplacer par l'URL réelle de création -->
+        <a class="btn" href="#creer">Créer mon TAGGO</a>
+        <a class="btn btn-ghost" href="#hero">Découvrir TAGGO</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <img src="assets/taggo-logo-full-colored.png" alt="TAGGO" width="120" />
+    <nav aria-label="Navigation pied de page">
+      <a href="#produit">Produit</a>
+      <a href="#fonctionnement">Fonctionnement</a>
+      <!-- TODO(contenu) : pages à créer — liens placeholders -->
+      <a href="#">FAQ</a>
+      <a href="#">Contact</a>
+      <a href="#">Mentions légales</a>
+      <a href="#">Politique de confidentialité</a>
+      <a href="#">Conditions générales</a>
+    </nav>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
